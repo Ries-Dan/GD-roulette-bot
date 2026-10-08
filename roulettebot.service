@@ -1,0 +1,14 @@
+[Unit]
+Description=RouletteBot (Exile Roulette) Discord bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=admin
+WorkingDirectory=/home/admin/GD-roulette-bot
+ExecStart=/home/admin/GD-roulette-bot/venv/bin/python roulettebot.py
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
