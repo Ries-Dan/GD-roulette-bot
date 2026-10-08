@@ -43,10 +43,11 @@ To add or rename a skill, edit `data.py`, deploy it, and restart. No other file 
 
 `render.py` uses Pillow only.
 
-- The wheel is drawn once at import (2x supersampled, then downscaled) and rotated per frame. The reel is a pre-drawn strip of 36 cells cropped per frame.
-- 760×380 px, 20 fps, wheel stops at 3.2s, reel at 4.2s. All frames share one 255-colour palette.
+- The wheel is drawn once at import (2x supersampled, then downscaled). Rotating it is slow on the Pi (~80 ms/frame), so `warm_cache()` pre-renders every rotation in 2° steps (180 tiles, background baked in) in a background thread at startup (~16s on the Pi). Landing jitter keeps the pointer >3° inside a segment, so 2° rounding never changes the result.
+- The reel is a pre-drawn strip of 36 cells cropped per frame.
+- 760×380 px, 20 fps, wheel stops at 3.2s, reel at 4.2s. All frames use one fixed 255-colour palette built at startup.
 - The GIF has no loop extension (plays once) and holds the last frame for 60s in case a client loops it anyway.
-- Local test: about 1s render, about 3.3 MB GIF. Expect slower on the Pi.
+- Measured on the Pi: ~3s per render, ~2.8 MB GIF, ~140 MB process memory.
 - Fonts are bundled in `fonts/` (IM Fell English SC, Alegreya Sans; SIL Open Font License, see `fonts/OFL.txt`).
 
 ## Configuration

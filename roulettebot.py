@@ -41,6 +41,8 @@ class RouletteBot(commands.Bot):
     async def setup_hook(self):
         # Created here, not at import, so it binds to the running loop (Python 3.9 on the Pi).
         self.render_slots = asyncio.Semaphore(MAX_CONCURRENT_RENDERS)
+        # Pre-rotate the wheel in the background so the first pulls are fast.
+        asyncio.get_running_loop().create_task(asyncio.to_thread(render.warm_cache))
 
 bot = RouletteBot(command_prefix="!", intents=intents)
 
