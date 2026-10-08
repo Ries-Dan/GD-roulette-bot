@@ -6,6 +6,7 @@ Wants=network-online.target
 [Service]
 User=admin
 WorkingDirectory=/home/admin/GD-roulette-bot
+Environment=PYTHONUNBUFFERED=1
 ExecStart=/home/admin/GD-roulette-bot/venv/bin/python roulettebot.py
 Restart=on-failure
 RestartSec=10
