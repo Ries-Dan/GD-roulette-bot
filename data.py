@@ -1,6 +1,6 @@
 # Exile Roulette pool — Path of Exile 2, patch 0.5.
 # Kept in sync with the Exile Roulette web app. Excludes Kalguuran (Return of the
-# Ancients) skills, ascendancy-only skills, unique-item skills, and buffs/auras/marks.
+# Ancients) skills, which drop separately and are not on the Uncut Skill Gem list.
 
 # (class name, wheel colour, ascendancies)
 CLASSES = [
@@ -21,39 +21,40 @@ SEGMENTS = [
     for asc in ascs
 ]
 
+# Source: the Uncut Skill Gem selection list (poe2db.tw/us/Uncut_Skill_Gem), i.e. only
+# skills a player can actually create in 0.5. Categories are the game's own groups.
+# Left out: buffs, curses, marks, warcries, offerings, movement and utility skills, and
+# item-granted skills (e.g. wand/sceptre/talisman skills such as Chaos Bolt or Maul).
 SKILLS = {
-    "Mace": ["Boneshatter", "Earthquake", "Rolling Slam", "Earthshatter", "Perfect Strike",
-             "Supercharged Slam", "Sunder", "Volcanic Fissure", "Molten Blast", "Forge Hammer",
-             "Stampede", "Hammer of the Gods", "Shockwave Totem", "Ancestral Warrior Totem"],
-    "Shield": ["Shield Charge", "Resonating Shield", "Shield Wall"],
-    "Spear": ["Whirling Slash", "Explosive Spear", "Fangs of Frost", "Rake", "Blood Hunt",
-              "Rapid Assault", "Spearfield", "Lightning Spear", "Twister", "Glacial Lance",
-              "Whirlwind Lance", "Thunderous Leap", "Spear of Solaris", "Wind Serpent's Fury",
-              "Primal Strikes", "Cull the Weak", "Elemental Sundering"],
-    "Bow": ["Lightning Arrow", "Lightning Rod", "Poisonburst Arrow", "Snipe", "Stormcaller Arrow",
-            "Vine Arrow", "Electrocuting Arrow", "Ice Shot", "Rain of Arrows", "Tornado Shot",
-            "Gas Arrow", "Toxic Growth", "Shockchain Arrow", "Spiral Volley", "Detonating Arrow",
-            "Freezing Salvo", "Magnetic Salvo"],
-    "Crossbow": ["Armour Piercing Rounds", "Explosive Shot", "Fragmentation Rounds", "Galvanic Shards",
-                 "Glacial Bolt", "Hailstorm Rounds", "High Velocity Rounds", "Incendiary Shot",
-                 "Permafrost Bolts", "Plasma Blast", "Rapid Shot", "Shockburst Rounds", "Siege Cascade",
-                 "Stormblast Bolts", "Artillery Ballista", "Ripwire Ballista", "Explosive Grenade",
-                 "Gas Grenade", "Oil Grenade", "Cluster Grenade"],
-    "Quarterstaff": ["Falling Thunder", "Glacial Cascade", "Ice Strike", "Tempest Flurry", "Tempest Bell",
-                     "Whirling Assault", "Killing Palm", "Charged Staff", "Storm Wave", "Wave of Frost"],
-    "Elemental Spell": ["Fireball", "Flame Wall", "Firestorm", "Incinerate", "Flameblast", "Solar Orb",
-                        "Ember Fusillade", "Comet", "Frostbolt", "Ice Nova", "Frost Bomb", "Eye of Winter",
-                        "Spark", "Arc", "Ball Lightning", "Lightning Conduit", "Orb of Storms",
-                        "Galvanic Field", "Living Bomb"],
-    "Chaos & Occult": ["Chaos Bolt", "Contagion", "Essence Drain", "Hexblast", "Soulrend", "Dark Effigy",
-                       "Bonestorm", "Bone Blast", "Exsanguinate", "Reap", "Detonate Dead", "Volatile Dead",
-                       "Power Siphon"],
-    "Minion": ["Skeletal Warrior", "Skeletal Sniper", "Skeletal Arsonist", "Skeletal Frost Mage",
-               "Skeletal Storm Mage", "Skeletal Reaver", "Skeletal Brute", "Raise Zombie", "Raging Spirits",
-               "Bind Spectre", "Unearth", "Tame Beast"],
-    "Druid": ["Volcano", "Thunderstorm", "Entangle", "Maul", "Furious Slam", "Rampage",
-              "Fury of the Mountain", "Cross Slash", "Lunar Assault", "Pounce", "Shred", "Wing Blast",
-              "Flame Breath", "Rolling Magma", "Oil Barrage"],
+    "Mace": ["Rolling Slam", "Boneshatter", "Earthquake", "Shockwave Totem", "Molten Blast",
+             "Perfect Strike", "Resonating Shield", "Shield Wall", "Earthshatter", "Volcanic Fissure",
+             "Forge Hammer", "Sunder", "Supercharged Slam", "Stampede", "Hammer of the Gods",
+             "Ancestral Warrior Totem"],
+    "Spear": ["Whirling Slash", "Twister", "Explosive Spear", "Rake", "Fangs of Frost", "Lightning Spear",
+              "Cull the Weak", "Rapid Assault", "Storm Lance", "Spearfield", "Glacial Lance", "Blood Hunt",
+              "Thunderous Leap", "Primal Strikes", "Elemental Sundering", "Whirlwind Lance",
+              "Spear of Solaris", "Wind Serpent's Fury"],
+    "Bow": ["Lightning Arrow", "Poisonburst Arrow", "Lightning Rod", "Freezing Salvo", "Stormcaller Arrow",
+            "Snipe", "Vine Arrow", "Toxic Growth", "Electrocuting Arrow", "Gas Arrow", "Ice Shot",
+            "Detonating Arrow", "Rain of Arrows", "Shockchain Arrow", "Tornado Shot", "Magnetic Salvo",
+            "Spiral Volley"],
+    "Crossbow": ["Explosive Grenade", "Permafrost Bolts", "Fragmentation Rounds", "Armour Piercing Rounds",
+                 "High Velocity Rounds", "Incendiary Shot", "Galvanic Shards", "Ice Shards", "Gas Grenade",
+                 "Rapid Shot", "Artillery Ballista", "Glacial Bolt", "Explosive Shot", "Voltaic Grenade",
+                 "Oil Grenade", "Siege Ballista", "Stormblast Bolts", "Hailstorm Rounds", "Shockburst Rounds",
+                 "Siege Cascade", "Plasma Blast", "Cluster Grenade"],
+    "Quarterstaff": ["Falling Thunder", "Frozen Locus", "Killing Palm", "Glacial Cascade", "Tempest Bell",
+                     "Ice Strike", "Tempest Flurry", "Wave of Frost", "Storm Wave", "Charged Staff",
+                     "Hand of Chayula", "Whirling Assault", "Flicker Strike", "Gathering Storm"],
+    "Elemental": ["Spark", "Ice Nova", "Flame Wall", "Frost Bomb", "Frost Darts", "Living Bomb", "Fireball",
+                  "Orb of Storms", "Arc", "Frostbolt", "Ember Fusillade", "Incinerate", "Ball Lightning",
+                  "Firestorm", "Comet", "Flameblast", "Eye of Winter", "Lightning Conduit"],
+    "Occult": ["Unearth", "Contagion", "Skeletal Sniper", "Essence Drain", "Skeletal Arsonist",
+               "Raise Zombie", "Bonestorm", "Skeletal Frost Mage", "Bind Spectre", "Detonate Dead",
+               "Skeletal Reaver", "Dark Effigy", "Skeletal Storm Mage", "Hexblast", "Skeletal Brute"],
+    "Primal": ["Lunar Assault", "Entangle", "Volcano", "Furious Slam", "Rolling Magma", "Wing Blast",
+               "Thunderstorm", "Fury of the Mountain", "Cross Slash", "Thrashing Vines", "Oil Barrage",
+               "Rampage", "Tornado", "Flame Breath"],
 }
 
 # Flat list of (skill name, category).

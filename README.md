@@ -34,8 +34,9 @@ Cooldowns are in memory and reset on restart.
 `data.py` holds the pool, mirrored from the web app:
 
 - `CLASSES`: 8 classes, 22 ascendancies (patch 0.5), each class with its wheel colour.
-- `SKILLS`: 140 main skills grouped by weapon/category (Mace, Shield, Spear, Bow, Crossbow, Quarterstaff, Elemental Spell, Chaos & Occult, Minion, Druid).
-- Excluded: Kalguuran (Return of the Ancients) skills, ascendancy-only skills, unique-item skills, buffs/auras/marks/cries/movement skills.
+- `SKILLS`: 134 main skills in the game's own Uncut Skill Gem groups (Mace, Spear, Bow, Crossbow, Quarterstaff, Elemental, Occult, Primal).
+- **Source of truth:** the Uncut Skill Gem selection list (https://poe2db.tw/us/Uncut_Skill_Gem). Only skills a player can create from an uncut gem are allowed. Don't use poe2db's full Skill Gems page: it includes data-mined and item-granted skills (e.g. Exsanguinate, Reap, Chaos Bolt, Skeletal Warrior, Maul) that can't be picked as gems.
+- Excluded from that list: buffs, curses, marks, warcries, offerings, movement/utility skills, and meta skills (Spell Totem, Mortar Cannon, Pounce). Kalguuran (Return of the Ancients) skills are never on the uncut list and are always excluded.
 
 To add or rename a skill, edit `data.py`, deploy it, and restart. No other file changes are needed. Keep the web app's list in step.
 
