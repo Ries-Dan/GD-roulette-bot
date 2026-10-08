@@ -12,9 +12,11 @@ Results are **private**. Only the person who pulled the lever sees their spin an
 
 **Cooldown** — Each member can pull once every 10 seconds.
 
-**Fair odds** — Every ascendancy (22) and every main skill (134) has the same chance. There are no filters.
+**Fair odds** — Every ascendancy (22) and every main skill (160) has the same chance. There are no filters.
 
-**What's left out** — Kalguuran skills, skills that only come from weapons or unique items, and buffs, curses, marks, warcries and movement skills. Every result is a skill gem you can make from an Uncut Skill Gem and build around.
+**Skills from items** — Some skills come from an item instead of a skill gem, like Chaos Bolt from a Withered Wand or Phantasmal Arrow from the unique bow Fairgraves' Curse. When you roll one, the result shows the **Required Item** you need to use it.
+
+**What's left out** — Kalguuran skills and Kalguuran items, plus buffs, curses, marks, warcries and movement skills. Every result is a skill you can build around.
 
 **Missing or wrong skill?** — Let @Deity know and the list will be updated.
 

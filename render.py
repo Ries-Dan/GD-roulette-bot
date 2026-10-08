@@ -223,7 +223,7 @@ def _palette() -> Image.Image:
         sample.paste(_wheel_tile(7), WHEEL_BOX)
         sample.paste(HUB_SPIN, HUB_POS, HUB_SPIN)
         sample.paste(POINTER, PTR_POS, POINTER)
-        strip = _draw_strip(SKILL_POOL[::23][:3])
+        strip = _draw_strip([SKILL_POOL[0], SKILL_POOL[-1], SKILL_POOL[40]])  # includes a gold "via item" line
         sample.paste(strip, (REEL_X, REEL_Y))
         sample.paste(REEL_OVERLAY, (REEL_X, REEL_Y), REEL_OVERLAY)
         _PALETTE.append(sample.quantize(colors=255, method=Image.Quantize.MEDIANCUT))
@@ -237,27 +237,33 @@ def _hub_for(cls_name: str) -> Image.Image:
 
 
 # ── Reel strip ─────────────────────────────────────────────────────────────────
-def _draw_strip(items: List[Tuple[str, str]]) -> Image.Image:
+def _draw_strip(items: List[tuple]) -> Image.Image:
     strip = Image.new("RGB", (REEL_W, CELL_H * len(items)), REEL_BG)
     d = ImageDraw.Draw(strip)
     tag_font = _font(BOLD_FONT, 12)
-    for i, (name, cat) in enumerate(items):
+    for i, (name, cat, item, _desc) in enumerate(items):
         top = i * CELL_H
         font = _fit_font(d, name, DISPLAY_FONT, 30, REEL_W - 56, min_size=16)
         d.text((REEL_W / 2, top + CELL_H / 2 - 6), name, font=font, fill=FG, anchor="mm")
-        tag = " ".join(cat.upper())
-        d.text((REEL_W / 2, top + CELL_H / 2 + 22), tag, font=tag_font, fill=MUTED, anchor="mm")
+        if item:
+            # Item-granted skill: name the item you need instead of the gem category.
+            label = f"via {item}"
+            item_font = _fit_font(d, label, BOLD_FONT, 15, REEL_W - 56, min_size=11)
+            d.text((REEL_W / 2, top + CELL_H / 2 + 22), label, font=item_font, fill=GOLD, anchor="mm")
+        else:
+            tag = " ".join(cat.upper())
+            d.text((REEL_W / 2, top + CELL_H / 2 + 22), tag, font=tag_font, fill=MUTED, anchor="mm")
         d.line((0, top + CELL_H - 1, REEL_W, top + CELL_H - 1), fill=(26, 23, 21))
     return strip
 
 
 # ── Public API ─────────────────────────────────────────────────────────────────
-def pick() -> Tuple[dict, Tuple[str, str]]:
+def pick() -> Tuple[dict, tuple]:
     """Choose an ascendancy segment and a skill at random."""
     return random.choice(SEGMENTS), random.choice(SKILL_POOL)
 
 
-def render_spin(segment: dict, skill: Tuple[str, str]) -> Tuple[bytes, bytes, float]:
+def render_spin(segment: dict, skill: tuple) -> Tuple[bytes, bytes, float]:
     """Render the pull. Returns (gif_bytes, png_bytes, animation_seconds)."""
     win = SEGMENTS.index(segment)
 

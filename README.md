@@ -37,6 +37,8 @@ Cooldowns are in memory and reset on restart.
 - `SKILLS`: 134 main skills in the game's own Uncut Skill Gem groups (Mace, Spear, Bow, Crossbow, Quarterstaff, Elemental, Occult, Primal).
 - **Source of truth:** the Uncut Skill Gem selection list (https://poe2db.tw/us/Uncut_Skill_Gem). Only skills a player can create from an uncut gem are allowed. Don't use poe2db's full Skill Gems page: it includes data-mined and item-granted skills (e.g. Exsanguinate, Reap, Chaos Bolt, Skeletal Warrior, Maul) that can't be picked as gems.
 - Excluded from that list: buffs, curses, marks, warcries, offerings, movement/utility skills, and meta skills (Spell Totem, Mortar Cannon, Pounce). Kalguuran (Return of the Ancients) skills are never on the uncut list and are always excluded.
+- `ITEM_SKILLS`: 26 skills granted by items, each stored as (skill, item, item description) under Wand, Staff, Sceptre or Unique. Sources are poe2db's base-type pages (Wands, Staves, Sceptres, Talismans) and unique item pages. Where several bases grant the same skill, the lowest-level base is named. Left out: aura/buff/utility grants (Mana Drain, Sigil of Power, Purity sceptres, etc.), skills with no granting item (Maul, Shred), and Kalguuran items (Twisted Empyrean → Starborn Onslaught).
+- Total pool: 160 skills (134 gems + 26 item skills). On the reel, item skills show "via <item>" in gold instead of the category. The result embed adds a **Required Item** field, e.g. "**Fairgraves' Curse** (unique Artillery Bow)".
 
 To add or rename a skill, edit `data.py`, deploy it, and restart. No other file changes are needed. Keep the web app's list in step.
 

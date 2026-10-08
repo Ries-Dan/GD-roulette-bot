@@ -61,7 +61,7 @@ def build_panel_embed() -> discord.Embed:
     )
 
 def build_result_embed(user: discord.abc.User, segment: dict, skill: tuple) -> discord.Embed:
-    name, category = skill
+    name, category, item, item_desc = skill
     embed = discord.Embed(
         title=f"{name} {segment['asc']}",
         description=f"Your next build, {user.mention}.",
@@ -69,7 +69,11 @@ def build_result_embed(user: discord.abc.User, segment: dict, skill: tuple) -> d
     )
     embed.add_field(name="Class", value=segment["cls"], inline=True)
     embed.add_field(name="Ascendancy", value=segment["asc"], inline=True)
-    embed.add_field(name="Main Skill", value=f"{name} ({category})", inline=True)
+    if item:
+        embed.add_field(name="Main Skill", value=name, inline=True)
+        embed.add_field(name="Required Item", value=f"**{item}** ({item_desc})", inline=False)
+    else:
+        embed.add_field(name="Main Skill", value=f"{name} ({category})", inline=True)
     embed.set_image(url="attachment://result.png")
     return embed
 
@@ -116,7 +120,8 @@ class LeverView(discord.ui.View):
                 embed=build_result_embed(user, segment, skill),
                 attachments=[discord.File(io.BytesIO(png), filename="result.png")],
             )
-            print(f"[BOT] {user.display_name} → {skill[0]} {segment['asc']} ({segment['cls']})")
+            via = f" via {skill[2]}" if skill[2] else ""
+            print(f"[BOT] {user.display_name} → {skill[0]}{via} {segment['asc']} ({segment['cls']})")
         except Exception as e:
             print(f"[ERROR] Pull failed for {user}: {e!r}")
             try:

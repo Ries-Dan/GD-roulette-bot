@@ -23,8 +23,8 @@ SEGMENTS = [
 
 # Source: the Uncut Skill Gem selection list (poe2db.tw/us/Uncut_Skill_Gem), i.e. only
 # skills a player can actually create in 0.5. Categories are the game's own groups.
-# Left out: buffs, curses, marks, warcries, offerings, movement and utility skills, and
-# item-granted skills (e.g. wand/sceptre/talisman skills such as Chaos Bolt or Maul).
+# Left out: buffs, curses, marks, warcries, offerings, movement and utility skills.
+# Item-granted skills are listed separately in ITEM_SKILLS below.
 SKILLS = {
     "Mace": ["Rolling Slam", "Boneshatter", "Earthquake", "Shockwave Totem", "Molten Blast",
              "Perfect Strike", "Resonating Shield", "Shield Wall", "Earthshatter", "Volcanic Fissure",
@@ -57,5 +57,50 @@ SKILLS = {
                "Rampage", "Tornado", "Flame Breath"],
 }
 
-# Flat list of (skill name, category).
-SKILL_POOL = [(name, cat) for cat, names in SKILLS.items() for name in names]
+# Skills granted by items, with the item you need: (skill, item, item description).
+# Source: poe2db base-type and unique pages. Where several bases grant the same skill,
+# the lowest-level base is named. Left out: auras/buffs/utility (e.g. Mana Drain,
+# Sigil of Power, Purity sceptres), and anything from Kalguuran items
+# (Twisted Empyrean / Starborn Onslaught).
+ITEM_SKILLS = {
+    "Wand": [
+        ("Chaos Bolt", "Withered Wand", "wand base"),
+        ("Bone Blast", "Bone Wand", "wand base"),
+        ("Power Siphon", "Siphoning Wand", "wand base"),
+        ("Volatile Dead", "Volatile Wand", "wand base"),
+        ("Galvanic Field", "Galvanic Wand", "wand base"),
+        ("Decompose", "Acrid Wand", "wand base"),
+        ("Exsanguinate", "Offering Wand", "wand base"),
+        ("Coiling Bolts", "Twisted Wand", "wand base"),
+    ],
+    "Staff": [
+        ("Firebolt", "Ashen Staff", "staff base"),
+        ("Freezing Shards", "Gelid Staff", "staff base"),
+        ("Lightning Bolt", "Voltaic Staff", "staff base"),
+        ("Solar Orb", "Pyrophyte Staff", "staff base"),
+        ("Soulrend", "Rending Staff", "staff base"),
+        ("Reap", "Reaping Staff", "staff base"),
+        ("Enervating Nova", "Paralysing Staff", "staff base"),
+        ("Dark Pact", "Dark Staff", "staff base"),
+        ("Spiraling Conspiracy", "Perching Staff", "staff base"),
+    ],
+    "Sceptre": [
+        ("Skeletal Warrior", "Rattling Sceptre", "sceptre base"),
+    ],
+    "Unique": [
+        ("Icestorm", "The Whispering Ice", "unique Staff"),
+        ("Molten Crash", "Fury of the King", "unique Talisman"),
+        ("Requiem", "The Last Lament", "unique Desolate Crossbow"),
+        ("Phantasmal Arrow", "Fairgraves' Curse", "unique Artillery Bow"),
+        ("Shattering Spite", "Atziri's Contempt", "unique Spear"),
+        ("Righteous Descent", "The Ordained", "unique Grand Spear"),
+        ("Soaring Midnight", "Nightfall", "unique Glacial Fortress shield"),
+        ("Crushing Fear", "Horror's Flight", "unique Engraved Bracers"),
+    ],
+}
+
+# Flat list of (skill name, category, item or None, item description or None).
+SKILL_POOL = (
+    [(name, cat, None, None) for cat, names in SKILLS.items() for name in names]
+    + [(name, cat, item, desc) for cat, entries in ITEM_SKILLS.items() for name, item, desc in entries]
+)
